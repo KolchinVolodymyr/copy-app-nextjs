@@ -47,6 +47,23 @@ export function useProductList(query?: QueryParams) {
     };
 }
 
+export function useProductListAll(query?: QueryParams) {
+    const { context } = useSession();
+    const params = new URLSearchParams({ ...query, context }).toString();
+
+    // Use an array to send multiple arguments to fetcher
+    const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
+    console.log('data: import-products', data);
+    // console.log('mutateList', mutateList)
+    return {
+        list: data,
+        meta: data?.meta,
+        isLoading: !data && !error,
+        error,
+        mutateList,
+    };
+}
+
 export function useProductInfo(pid: number, list: ListItem[]) {
     const { context } = useSession();
     const params = new URLSearchParams({ context }).toString();

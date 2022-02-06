@@ -14,9 +14,9 @@ const customRender = (ui: ReactElement, options: RenderOptions = {}) => (
 );
 
 // re-export everything
-// eslint-disable-next-line import/export
+// eslint-disable-next-line import-products/export
 export * from '@testing-library/react';
 
 // override render method
-// eslint-disable-next-line import/export
+// eslint-disable-next-line import-products/export
 export { customRender as render };
