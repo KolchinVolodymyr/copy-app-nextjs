@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node server/src/index.js",
+    "server:install": "cd server/src && npm install",
+    "server": "npm run server:install && node server/src/index.js",
     "dev": "concurrently \"next\" \"npm run server\"",
     "build": "next build",
     "start": "next start -p $PORT",
