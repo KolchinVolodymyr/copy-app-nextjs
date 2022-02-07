@@ -53,14 +53,18 @@ export function useProductListAll(query?: QueryParams) {
 
     // Use an array to send multiple arguments to fetcher
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
-    console.log('data: import-products', data);
-    // console.log('mutateList', mutateList)
+
+
+    console.log('query', query);
+    console.log('context', context);
+    console.log('params', params);
     return {
         list: data,
         meta: data?.meta,
         isLoading: !data && !error,
         error,
         mutateList,
+        ClientID: process.env.CLIENT_ID
     };
 }
 
