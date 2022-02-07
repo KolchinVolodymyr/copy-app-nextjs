@@ -1,5 +1,5 @@
 import { Button, Flex, FormGroup, Input, Panel, Form as StyledForm } from '@bigcommerce/big-design';
-
+// @ts-ignore
 import {useState, ChangeEvent} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
@@ -27,7 +27,7 @@ const importProducts = ({ formData}: FormProps) => {
 
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
-
+    // @ts-ignore
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name: formName, value } = event?.target;
         setForm(prevForm => ({ ...prevForm, [formName]: value }));
