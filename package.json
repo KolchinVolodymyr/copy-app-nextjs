@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server:install": "cd server/src && npm install",
-    "server": "npm run server:install && node server/src/index.js",
-    "dev": "concurrently \"next\" \"npm run server\"",
+    "dev": "next",
     "build": "next build",
     "start": "next start -p $PORT",
     "test": "jest",
@@ -23,7 +21,6 @@
     "@bigcommerce/big-design": "^0.30.2",
     "@bigcommerce/big-design-theme": "^0.13.1",
     "@emailjs/browser": "^3.4.0",
-    "concurrently": "^7.0.0",
     "emailjs": "^3.7.0",
     "firebase": "^9.5.0",
     "fs": "0.0.1-security",
