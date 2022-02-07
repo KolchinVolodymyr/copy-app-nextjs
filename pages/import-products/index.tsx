@@ -40,7 +40,7 @@ console.log('url2', url2)
 
     };
 
-    const onClickBtnSend = (event,url) => {
+    const onClickBtnSend = () => {
     console.log('process.env.URL_SEND_EMAIL', process.env.URL_SEND_EMAIL);
     console.log('process.env', process.env);
     console.log("urlurlurlurl", url);
