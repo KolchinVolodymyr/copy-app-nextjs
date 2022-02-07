@@ -13,8 +13,8 @@ const importProducts = ({formData}: FormProps) => {
     const [form, setForm] = useState({ email: '' });
 
     const dataImportProduct = [];
-    const { error, isLoading, list = [], meta = {}, mutateList=[] } = useProductListAll();
-
+    const { error, isLoading, list = [], meta = {}, mutateList=[] , ClientID} = useProductListAll();
+    console.log('ClientID', ClientID);
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
@@ -22,7 +22,7 @@ const importProducts = ({formData}: FormProps) => {
         console.log('dataImportProduct', dataImportProduct);
     }
 
-    if (isLoading) return <Loading />;
+    // if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,7 +37,7 @@ const importProducts = ({formData}: FormProps) => {
     };
 
     const onClickBtnSend = () => {
-        fetch('https://express-heroku-app-email.herokuapp.com/send', {
+        fetch('http://localhost:8080', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
