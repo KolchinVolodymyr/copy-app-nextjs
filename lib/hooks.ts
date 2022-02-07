@@ -58,13 +58,15 @@ export function useProductListAll(query?: QueryParams) {
     console.log('query', query);
     console.log('context', context);
     console.log('params', params);
+    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0IjoiODVremJmMThxZCIsInVzZXIiOnsiaWQiOjIwNjAxNDMsImVtYWlsIjoia29sY2hpbnZvbG9kdW11ckBnbWFpbC5jb20ifSwib3duZXIiOnsiaWQiOjIwNjAxNDMsImVtYWlsIjoia29sY2hpbnZvbG9kdW11ckBnbWFpbC5jb20ifSwiaWF0IjoxNjQ0MjY3NTYwLCJleHAiOjE2NDQzNTM5NjB9.xOyG4RGrqqPNTXuWCn5SGvpMoykyUEuoaPoS4hCeG-g
+    
     return {
         list: data,
         meta: data?.meta,
         isLoading: !data && !error,
         error,
         mutateList,
-        ClientID: process.env.CLIENT_ID
+        context: context
     };
 }
 

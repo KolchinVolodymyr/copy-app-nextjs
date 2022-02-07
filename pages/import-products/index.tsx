@@ -13,8 +13,8 @@ const importProducts = ({formData}: FormProps) => {
     const [form, setForm] = useState({ email: '' });
 
     const dataImportProduct = [];
-    const { error, isLoading, list = [], meta = {}, mutateList=[] , ClientID} = useProductListAll();
-    console.log('ClientID', ClientID);
+    const { error, isLoading, list = [], meta = {}, mutateList=[] , context} = useProductListAll();
+    console.log('context2389', context);
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
@@ -22,7 +22,7 @@ const importProducts = ({formData}: FormProps) => {
         console.log('dataImportProduct', dataImportProduct);
     }
 
-    // if (isLoading) return <Loading />;
+    if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,7 +42,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({dataSCV: dataImportProduct, email: form.email})
+            body: JSON.stringify({dataSCV: dataImportProduct, email: form.email, context: context})
         }).then((response)=> {
              console.log('response', response)
         }).catch((error)=> console.log('error', error))
