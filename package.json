@@ -10,7 +10,6 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "test": "jest",
-    "lint": "eslint . --ext .ts,.tsx,.js",
     "db:setup": "node scripts/db.js"
   },
   "keywords": [],
