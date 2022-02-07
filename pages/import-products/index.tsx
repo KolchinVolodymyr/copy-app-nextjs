@@ -1,12 +1,9 @@
 import { Button, Flex, FormGroup, Input, Panel, Form as StyledForm } from '@bigcommerce/big-design';
-// @ts-ignore
 import {useState, ChangeEvent} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
 import {useProductListAll} from '../../lib/hooks';
 import { CSVLink } from "react-csv";
-
-import emailjs from '@emailjs/browser';
 
 
 interface FormProps {
@@ -27,11 +24,11 @@ const importProducts = ({ formData}: FormProps) => {
 
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
-    // @ts-ignore
+
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name: formName, value } = event?.target;
         setForm(prevForm => ({ ...prevForm, [formName]: value }));
-        console.log('email form', form);
+//         console.log('email form', form);
     };
 
     const handleSubmit = (e) => {
@@ -40,7 +37,7 @@ const importProducts = ({ formData}: FormProps) => {
     };
 
     const onClickBtnSend = () => {
-        console.log('hi onClickBtnSend');
+//         console.log('hi onClickBtnSend');
 
         fetch('http://localhost:8080/send', {
             method: 'POST',
@@ -49,10 +46,10 @@ const importProducts = ({ formData}: FormProps) => {
             },
             body: JSON.stringify({dataSCV: dataImportProduct, email: form.email})
         }).then((response)=> {
-            console.log('response', response)
+//             console.log('response', response)
         }).catch((error)=> console.log('error', error))
           .finally(()=>{
-              console.log('finally')
+//               console.log('finally')
           })
     }
 
