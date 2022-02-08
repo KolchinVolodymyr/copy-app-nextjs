@@ -16,13 +16,13 @@ const importProducts = ({formData}: FormProps) => {
     const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
     const dataImportProduct = [];
-    const { error, isLoading, list = [], meta = {}, mutateList=[] , context} = useProductListAll();
-
+    const { error, isLoading, list = [], meta = {}, mutateList=[], data } = useProductListAll();
+    console.log('data', data);
+    // console.log('accessToken+accessToken', accessToken);
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
         })
-        //console.log('dataImportProduct', dataImportProduct);
     }
 
     //if (isLoading) return <Loading />;
@@ -53,7 +53,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail, context: context})
+            body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail})
         }).then((response)=> {
             setIsShownSuccess(!isShownSuccess);
         }).catch((error)=> {
