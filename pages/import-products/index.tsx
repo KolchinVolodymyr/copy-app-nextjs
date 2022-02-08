@@ -1,4 +1,4 @@
-import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Checkbox} from '@bigcommerce/big-design';
+import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Checkbox, Message} from '@bigcommerce/big-design';
 import {useState, ChangeEvent} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
@@ -10,8 +10,10 @@ interface FormProps {
 }
 
 const importProducts = ({formData}: FormProps) => {
+    const [isShownSuccess, setIsShownSuccess] = useState(false);
+    const [isShownError, setIsShownError] = useState(false);
     const [formEmail, setFormEmail] = useState({ email: '' });
-    const [form, setForm] = useState({ email: '', daily: false, weekly: false });
+    const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
     const dataImportProduct = [];
     const { error, isLoading, list = [], meta = {}, mutateList=[] , context} = useProductListAll();
@@ -20,7 +22,7 @@ const importProducts = ({formData}: FormProps) => {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
         })
-//         console.log('dataImportProduct', dataImportProduct);
+        //console.log('dataImportProduct', dataImportProduct);
     }
 
     if (isLoading) return <Loading />;
@@ -29,21 +31,20 @@ const importProducts = ({formData}: FormProps) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name: formName, value } = event?.target;
         setFormEmail(prevForm => ({ ...prevForm, [formName]: value }));
-        console.log('email form', formEmail);
     };
+
     const handleChangeForm  = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
        const { name: formName, value } = event?.target;
        setForm(prevForm => ({ ...prevForm, [formName]: value }));
-       console.log('handleChangeForm', form);
-   };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { checked, name: formName } = event?.target;
+        setForm({ daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
         setForm(prevForm => ({ ...prevForm, [formName]: checked }));
-        console.log('handleCheckboxChange', form)
     };
 
     const onClickBtnSend = () => {
@@ -54,11 +55,17 @@ const importProducts = ({formData}: FormProps) => {
             },
             body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail, context: context})
         }).then((response)=> {
-             console.log('response', response)
-        }).catch((error)=> console.log('error', error))
-          .finally(()=>{
-               console.log('finally')
-          })
+            setIsShownSuccess(!isShownSuccess);
+        }).catch((error)=> {
+            setIsShownError(!isShownError);
+        })
+        .finally(()=>{
+            console.log('finally');
+        })
+    }
+    const onClickBtnSubscribe = () => {
+        console.log('onClickBtnSubscribe');
+        console.log("form", form);
     }
 
     return (
@@ -83,6 +90,20 @@ const importProducts = ({formData}: FormProps) => {
                             onChange={handleChange}
                         />
                     </FormGroup>
+                    {isShownError &&
+                        <Message
+                            type="error"
+                            messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
+                            marginVertical="medium"
+                        />
+                    }
+                    {isShownSuccess &&
+                        <Message
+                            type="success"
+                            messages={[{ text: 'Email sent successfully ' }]}
+                            marginVertical="medium"
+                        />
+                    }
                     <Flex justifyContent="flex-end">
                         <Button
                             type="submit"
@@ -112,11 +133,37 @@ const importProducts = ({formData}: FormProps) => {
                         label="Send daily"
                     />
                     <Checkbox
+                        name="workingDay"
+                        checked={form.workingDay}
+                        onChange={handleCheckboxChange}
+                        label="Send daily (Monday through Friday only) "
+                    />
+                    <Checkbox
                         name="weekly"
                         checked={form.weekly}
                         onChange={handleCheckboxChange}
-                        label="Send weekly (Monday-Friday only) "
+                        label="Sending weekly (1 email per week)"
                     />
+                    <Checkbox
+                        name="monthly"
+                        checked={form.monthly}
+                        onChange={handleCheckboxChange}
+                        label="Sending monthly "
+                    />
+                    <Checkbox
+                        name="unsubscribe"
+                        checked={form.unsubscribe}
+                        onChange={handleCheckboxChange}
+                        label="Unsubscribe from mailing list "
+                    />
+                    <Flex justifyContent="flex-end">
+                        <Button
+                            type="submit"
+                            onClick={onClickBtnSubscribe}
+                        >
+                            Subscribe
+                        </Button>
+                    </Flex>
                 </FormGroup>
             </Panel>
         </Panel>
