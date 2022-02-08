@@ -25,7 +25,7 @@ const importProducts = ({formData}: FormProps) => {
         //console.log('dataImportProduct', dataImportProduct);
     }
 
-    if (isLoading) return <Loading />;
+    //if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -66,6 +66,21 @@ const importProducts = ({formData}: FormProps) => {
     const onClickBtnSubscribe = () => {
         console.log('onClickBtnSubscribe');
         console.log("form", form);
+        fetch('http://localhost:8080/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({form: form})
+        })
+        .then((data) => {
+            console.log('Subscribe: data', data);
+        }).catch((error)=> {
+          console.log('Subscribe: error', error)
+        })
+        .finally(()=>{
+            console.log('Subscribe: finally');
+        })
     }
 
     return (
