@@ -25,7 +25,7 @@ const importProducts = ({formData}: FormProps) => {
         //console.log('dataImportProduct', dataImportProduct);
     }
 
-    if (isLoading) return <Loading />;
+//     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -43,7 +43,7 @@ const importProducts = ({formData}: FormProps) => {
     };
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { checked, name: formName } = event?.target;
-        setForm({ daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
+        setForm({ email:form.email, daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
         setForm(prevForm => ({ ...prevForm, [formName]: checked }));
     };
 
