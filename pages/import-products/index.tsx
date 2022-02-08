@@ -10,6 +10,7 @@ interface FormProps {
 }
 
 const importProducts = ({formData}: FormProps) => {
+    const [formEmail, setFormEmail] = useState({ email: '' });
     const [form, setForm] = useState({ email: '', daily: false, weekly: false });
 
     const dataImportProduct = [];
@@ -27,9 +28,14 @@ const importProducts = ({formData}: FormProps) => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name: formName, value } = event?.target;
-        setForm(prevForm => ({ ...prevForm, [formName]: value }));
-        //console.log('email form', form);
+        setFormEmail(prevForm => ({ ...prevForm, [formName]: value }));
+        console.log('email form', formEmail);
     };
+    const handleChangeForm  = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+       const { name: formName, value } = event?.target;
+       setForm(prevForm => ({ ...prevForm, [formName]: value }));
+       console.log('handleChangeForm', form);
+   };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +47,7 @@ const importProducts = ({formData}: FormProps) => {
     };
 
     const onClickBtnSend = () => {
-        fetch('http://localhost:8080', {
+        fetch('https://express-heroku-app-email.herokuapp.com/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,14 +72,14 @@ const importProducts = ({formData}: FormProps) => {
                     Download.csv
                 </CSVLink>
             </Panel>
-            <StyledForm>
-                <Panel header="Send Big Commerce product import file by mail">
+            <StyledForm onSubmit={handleSubmit}>
+                <Panel header="Send BigCommerce product import file by mail">
                     <FormGroup>
                         <Input
                             label="Enter Email"
                             name="email"
                             required
-                            value={form.email}
+                            value={formEmail.email}
                             onChange={handleChange}
                         />
                     </FormGroup>
