@@ -72,7 +72,7 @@ const importProducts = ({formData}: FormProps) => {
                     Download.csv
                 </CSVLink>
             </Panel>
-            <StyledForm>
+            <StyledForm onSubmit={handleSubmit}>
                 <Panel header="Send BigCommerce product import file by mail">
                     <FormGroup>
                         <Input
