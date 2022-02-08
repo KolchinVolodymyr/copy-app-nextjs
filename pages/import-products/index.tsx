@@ -1,4 +1,4 @@
-import { Button, Flex, FormGroup, Input, Panel, Form as StyledForm } from '@bigcommerce/big-design';
+import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Checkbox} from '@bigcommerce/big-design';
 import {useState, ChangeEvent} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
@@ -10,11 +10,11 @@ interface FormProps {
 }
 
 const importProducts = ({formData}: FormProps) => {
-    const [form, setForm] = useState({ email: '' });
+    const [form, setForm] = useState({ email: '', daily: false, weekly: false });
 
     const dataImportProduct = [];
     const { error, isLoading, list = [], meta = {}, mutateList=[] , context} = useProductListAll();
-    console.log('context2389', context);
+
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
@@ -22,7 +22,7 @@ const importProducts = ({formData}: FormProps) => {
         console.log('dataImportProduct', dataImportProduct);
     }
 
-    if (isLoading) return <Loading />;
+    // if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,7 +33,11 @@ const importProducts = ({formData}: FormProps) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    };
+    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { checked, name: formName } = event?.target;
+        setForm(prevForm => ({ ...prevForm, [formName]: checked }));
+        console.log('handleCheckboxChange', form)
     };
 
     const onClickBtnSend = () => {
@@ -42,7 +46,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({dataSCV: dataImportProduct, email: form.email, context: context})
+            body: JSON.stringify({dataSCV: dataImportProduct, form: form, context: context})
         }).then((response)=> {
              console.log('response', response)
         }).catch((error)=> console.log('error', error))
@@ -64,6 +68,20 @@ const importProducts = ({formData}: FormProps) => {
                             required
                             value={form.email}
                             onChange={handleChange}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Checkbox
+                            name="daily"
+                            checked={form.daily}
+                            onChange={handleCheckboxChange}
+                            label="Send daily"
+                        />
+                        <Checkbox
+                            name="daily"
+                            checked={form.weekly}
+                            onChange={handleCheckboxChange}
+                            label="Send weekly"
                         />
                     </FormGroup>
                 </Panel>
