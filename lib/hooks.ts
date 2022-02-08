@@ -55,12 +55,12 @@ export function useProductListAll(query?: QueryParams) {
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
 
 
-    console.log('query', query);
-//  console.log('context', context);
-//  console.log('params', params);
-    console.log('process.env CLIENT_ID', process.env.CLIENT_ID);
-    console.log('process.env CLIENT_SECRET:', process.env.CLIENT_SECRET);
-    console.log('process.env AUTH_CALLBACK:', process.env.AUTH_CALLBACK);
+//     console.log('query', query);
+// //  console.log('context', context);
+// //  console.log('params', params);
+//     console.log('process.env CLIENT_ID', process.env.CLIENT_ID);
+//     console.log('process.env CLIENT_SECRET:', process.env.CLIENT_SECRET);
+//     console.log('process.env AUTH_CALLBACK:', process.env.AUTH_CALLBACK);
     return {
         list: data,
         meta: data?.meta,
