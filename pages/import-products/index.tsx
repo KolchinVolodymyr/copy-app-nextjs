@@ -23,7 +23,7 @@ const importProducts = ({formData}: FormProps) => {
 //         console.log('dataImportProduct', dataImportProduct);
     }
 
-    if (isLoading) return <Loading />;
+//     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,12 +47,12 @@ const importProducts = ({formData}: FormProps) => {
     };
 
     const onClickBtnSend = () => {
-        fetch('https://express-heroku-app-email.herokuapp.com/send', {
+        fetch('http://localhost:8080/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({dataSCV: dataImportProduct, form: form, context: context})
+            body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail, context: context})
         }).then((response)=> {
              console.log('response', response)
         }).catch((error)=> console.log('error', error))
@@ -101,7 +101,7 @@ const importProducts = ({formData}: FormProps) => {
                         name="email"
                         required
                         value={form.email}
-                        onChange={handleChange}
+                        onChange={handleChangeForm}
                     />
                 </FormGroup>
                 <FormGroup>
