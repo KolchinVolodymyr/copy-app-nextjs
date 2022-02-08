@@ -55,7 +55,7 @@ export function useProductListAll(query?: QueryParams) {
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
 
     console.log('data',  data);
-    console.log('data.accessToken', data.accessToken);
+    // console.log('data.accessToken', data.accessToken);
     // console.log('query', query);
     // console.log('context', context);
     // console.log('params', params);
@@ -68,7 +68,6 @@ export function useProductListAll(query?: QueryParams) {
         isLoading: !data?.data && !error,
         error,
         mutateList,
-        accessToken: data.accessToken
     };
 }
 

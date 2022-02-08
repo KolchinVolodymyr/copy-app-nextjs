@@ -16,9 +16,9 @@ const importProducts = ({formData}: FormProps) => {
     const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
     const dataImportProduct = [];
-    const { error, isLoading, list = [], meta = {}, mutateList=[] , accessToken} = useProductListAll();
+    const { error, isLoading, list = [], meta = {}, mutateList=[] } = useProductListAll();
     // console.log('storeHash-storeHash', storeHash);
-    console.log('accessToken+accessToken', accessToken);
+    // console.log('accessToken+accessToken', accessToken);
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
@@ -71,7 +71,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({form: form, accessToken: accessToken})
+            body: JSON.stringify({form: form})
         })
         .then((data) => {
             console.log('Subscribe: data', data);
