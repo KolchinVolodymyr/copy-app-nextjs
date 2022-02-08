@@ -23,7 +23,7 @@ const importProducts = ({formData}: FormProps) => {
 //         console.log('dataImportProduct', dataImportProduct);
     }
 
-//     if (isLoading) return <Loading />;
+    if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
