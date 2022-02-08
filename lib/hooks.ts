@@ -52,9 +52,8 @@ export function useProductListAll(query?: QueryParams) {
     const params = new URLSearchParams({ ...query, context }).toString();
 
     // Use an array to send multiple arguments to fetcher
-    const { data, error, mutate: mutateList, token } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
+    const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
 
-    console.log('token', token);
     console.log('data', data);
     console.log('query', query);
     console.log('context', context);
