@@ -56,10 +56,11 @@ export function useProductListAll(query?: QueryParams) {
 
 
     console.log('query', query);
-    console.log('context', context);
-    console.log('params', params);
-    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0IjoiODVremJmMThxZCIsInVzZXIiOnsiaWQiOjIwNjAxNDMsImVtYWlsIjoia29sY2hpbnZvbG9kdW11ckBnbWFpbC5jb20ifSwib3duZXIiOnsiaWQiOjIwNjAxNDMsImVtYWlsIjoia29sY2hpbnZvbG9kdW11ckBnbWFpbC5jb20ifSwiaWF0IjoxNjQ0MjY3NTYwLCJleHAiOjE2NDQzNTM5NjB9.xOyG4RGrqqPNTXuWCn5SGvpMoykyUEuoaPoS4hCeG-g
-    
+//  console.log('context', context);
+//  console.log('params', params);
+    console.log('process.env CLIENT_ID', process.env.CLIENT_ID);
+    console.log('process.env CLIENT_SECRET:', process.env.CLIENT_SECRET);
+    console.log('process.env AUTH_CALLBACK:', process.env.AUTH_CALLBACK);
     return {
         list: data,
         meta: data?.meta,

@@ -19,7 +19,7 @@ const importProducts = ({formData}: FormProps) => {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
         })
-        console.log('dataImportProduct', dataImportProduct);
+//         console.log('dataImportProduct', dataImportProduct);
     }
 
     // if (isLoading) return <Loading />;
@@ -57,10 +57,17 @@ const importProducts = ({formData}: FormProps) => {
 
     return (
         <Panel>
-            Import products:
-            <CSVLink data={dataImportProduct}>Download.csv</CSVLink>
+            <Panel header="Download products BigCommerce">
+                <CSVLink
+                    data={dataImportProduct}
+                    className="btn btn-primary"
+                    filename={"BigCommerce-import-products.csv"}
+                >
+                    Download.csv
+                </CSVLink>
+            </Panel>
             <StyledForm onSubmit={handleSubmit}>
-                <Panel header="Basic Information">
+                <Panel header="Send Big Commerce product import file by mail">
                     <FormGroup>
                         <Input
                             label="Enter Email"
@@ -70,30 +77,15 @@ const importProducts = ({formData}: FormProps) => {
                             onChange={handleChange}
                         />
                     </FormGroup>
-                    <FormGroup>
-                        <Checkbox
-                            name="daily"
-                            checked={form.daily}
-                            onChange={handleCheckboxChange}
-                            label="Send daily"
-                        />
-                        <Checkbox
-                            name="daily"
-                            checked={form.weekly}
-                            onChange={handleCheckboxChange}
-                            label="Send weekly"
-                        />
-                    </FormGroup>
+                    <Flex justifyContent="flex-end">
+                        <Button
+                            type="submit"
+                            onClick={onClickBtnSend}
+                        >
+                            Send Email
+                        </Button>
+                    </Flex>
                 </Panel>
-
-                <Flex justifyContent="flex-end">
-                    <Button
-                        type="submit"
-                        onClick={onClickBtnSend}
-                    >
-                        Send Email
-                    </Button>
-                </Flex>
             </StyledForm>
         </Panel>
     );
