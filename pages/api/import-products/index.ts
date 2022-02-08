@@ -7,7 +7,7 @@ export default async function importProducts(req: NextApiRequest, res: NextApiRe
         const bigcommerce = bigcommerceClient(accessToken, storeHash);
         console.log("sdsdsdsdsd")
         const { data } = await bigcommerce.get('/catalog/products?include=variants');
-        res.status(201).json(data);
+        res.status(201).json({data, token:'xzxzxzxzx'});
     } catch (error) {
         const { message, response } = error;
         res.status(response?.status || 500).json({ message });
