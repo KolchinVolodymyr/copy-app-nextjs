@@ -66,7 +66,7 @@ const importProducts = ({formData}: FormProps) => {
                     Download.csv
                 </CSVLink>
             </Panel>
-            <StyledForm onSubmit={handleSubmit}>
+            <StyledForm>
                 <Panel header="Send Big Commerce product import file by mail">
                     <FormGroup>
                         <Input
@@ -87,6 +87,32 @@ const importProducts = ({formData}: FormProps) => {
                     </Flex>
                 </Panel>
             </StyledForm>
+            <Panel header="Subscribe to our newsletter">
+                Get the latest updates on new products and stock level
+                <FormGroup>
+                    <Input
+                        label="Enter Email"
+                        name="email"
+                        required
+                        value={form.email}
+                        onChange={handleChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Checkbox
+                        name="daily"
+                        checked={form.daily}
+                        onChange={handleCheckboxChange}
+                        label="Send daily"
+                    />
+                    <Checkbox
+                        name="weekly"
+                        checked={form.weekly}
+                        onChange={handleCheckboxChange}
+                        label="Send weekly (Monday-Friday only) "
+                    />
+                </FormGroup>
+            </Panel>
         </Panel>
     );
 };
