@@ -29,6 +29,7 @@ const importProducts = ({formData}: FormProps) => {
     }
 
     console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
+    console.log('dataImportProduct', dataImportProduct);
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
@@ -52,7 +53,9 @@ const importProducts = ({formData}: FormProps) => {
     };
 
     const onClickBtnSend = () => {
-        fetch('https://express-heroku-app-email.herokuapp.com/send', {
+    // https://express-heroku-app-email.herokuapp.com/send
+    // http://localhost:8080/send
+        fetch('http://localhost:8080/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +71,7 @@ const importProducts = ({formData}: FormProps) => {
         })
     }
     const onClickBtnSubscribe = () => {
-        fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
+        fetch('http://localhost:8080/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
