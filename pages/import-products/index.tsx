@@ -30,7 +30,7 @@ const importProducts = ({formData}: FormProps) => {
 
     // console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
     // console.log('dataImportProduct', dataImportProduct);
-    if (isLoading) return <Loading />;
+    // if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,20 +55,29 @@ const importProducts = ({formData}: FormProps) => {
     const onClickBtnSend = () => {
     // https://express-heroku-app-email.herokuapp.com/send
     // http://localhost:8080/send
-        fetch('https://express-heroku-app-email.herokuapp.com/send', {
+    console.log('isLoading', isLoading);
+    if (isLoading) return <Loading />;
+        setTimeout(() => {
+        console.log("this is the first message");
+        fetch('http://localhost:8080/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail})
         }).then((response)=> {
+            setTimeout(() => {console.log("this is the first message")}, 3000);
+            console.log('response');
             setIsShownSuccess(!isShownSuccess);
         }).catch((error)=> {
+            console.log('error');
             setIsShownError(!isShownError);
         })
         .finally(()=>{
             console.log('finally');
         })
+
+         }, 3000);
     }
     const onClickBtnSubscribe = () => {
         fetch('http://localhost:8080/subscribe', {
