@@ -27,7 +27,8 @@ const importProducts = ({formData}: FormProps) => {
         clientData.push(process.env.CLIENT_ID);
     }
 console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_ID);
-    if (isLoading) return <Loading />;
+    console.log('process.env.customKey', process.env.customKey);
+    // if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -78,6 +79,7 @@ console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_
                 accessToken: data?.accessToken,
                 storeHash: data?.storeHash,
                 clientID: process.env.NEXT_PUBLIC_CLIENT_ID,
+                customKey: process.env.customKey
             })
         })
         .then((data) => {
