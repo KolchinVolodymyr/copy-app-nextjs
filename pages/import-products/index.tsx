@@ -26,8 +26,8 @@ const importProducts = ({formData}: FormProps) => {
         })
         clientData.push(process.env.CLIENT_ID);
     }
-
-    //if (isLoading) return <Loading />;
+console.log('process.env.CLIENT_ID', process.env.CLIENT_ID);
+    if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
