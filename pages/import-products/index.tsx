@@ -26,7 +26,7 @@ const importProducts = ({formData}: FormProps) => {
         })
         clientData.push(process.env.CLIENT_ID);
     }
-console.log('process.env.CLIENT_ID', process.env.CLIENT_ID);
+console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_ID);
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
@@ -77,9 +77,7 @@ console.log('process.env.CLIENT_ID', process.env.CLIENT_ID);
                 form: form,
                 accessToken: data?.accessToken,
                 storeHash: data?.storeHash,
-                clientID: 'process.env.CLIENT_ID',
-                client: clientData,
-                clientI: process.env.CLIENT_ID,
+                clientID: process.env.NEXT_PUBLIC_CLIENT_ID,
             })
         })
         .then((data) => {
