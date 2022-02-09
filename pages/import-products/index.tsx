@@ -32,7 +32,7 @@ const importProducts = ({formData}: FormProps) => {
 
     // console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
     // console.log('dataImportProduct', dataImportProduct);
-    // if (isLoading) return <Loading />;
+    if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -78,7 +78,7 @@ const importProducts = ({formData}: FormProps) => {
         })
     }
     const onClickBtnSubscribe = () => {
-        setIsLoadingSubscribeShowShow(true);
+        setIsLoadingSubscribeShow(true);
         fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
             method: 'POST',
             headers: {
@@ -97,7 +97,7 @@ const importProducts = ({formData}: FormProps) => {
             setIsShownErrorSubscribe(!isShownErrorSubscribe);
         })
         .finally(()=>{
-            setIsLoadingSubscribeShowShow(false);
+            setIsLoadingSubscribeShow(false);
             setTimeout(() => {
                 setIsShownSuccessSubscribe(false);
                 setIsShownErrorSubscribe(false);
