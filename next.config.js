@@ -1,5 +1,5 @@
 module.exports = {
     env: {
-        customKey: process.env.CLIENT_ID,
+        CLIENT_PUBLIC_ID: process.env.CLIENT_ID,
     },
 }

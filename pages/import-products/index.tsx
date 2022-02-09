@@ -26,9 +26,9 @@ const importProducts = ({formData}: FormProps) => {
         })
         clientData.push(process.env.CLIENT_ID);
     }
-console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_ID);
-    console.log('process.env.customKey', process.env.customKey);
-    // if (isLoading) return <Loading />;
+    console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_ID);
+    console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
+    if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -78,14 +78,13 @@ console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_
                 form: form,
                 accessToken: data?.accessToken,
                 storeHash: data?.storeHash,
-                clientID: process.env.NEXT_PUBLIC_CLIENT_ID,
-                customKey: process.env.customKey
+                clientID: process.env.CLIENT_PUBLIC_ID
             })
         })
         .then((data) => {
             console.log('Subscribe: data', data);
         }).catch((error)=> {
-          console.log('Subscribe: error', error)
+            console.log('Subscribe: error', error)
         })
         .finally(()=>{
             console.log('Subscribe: finally');
