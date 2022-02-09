@@ -55,7 +55,7 @@ const importProducts = ({formData}: FormProps) => {
     const onClickBtnSend = () => {
     // https://express-heroku-app-email.herokuapp.com/send
     // http://localhost:8080/send
-        fetch('http://localhost:8080/send', {
+        fetch('https://express-heroku-app-email.herokuapp.com/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
