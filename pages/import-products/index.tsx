@@ -19,13 +19,13 @@ const importProducts = ({formData}: FormProps) => {
     const { error, isLoading, list = [], meta = {}, mutateList=[], data } = useProductListAll();
     console.log('data', data);
     // console.log('accessToken+accessToken', accessToken);
+    const clientData = [];
     if(!isLoading) {
         list.forEach((el)=>{
             dataImportProduct.push(...el.variants)
         })
+        clientData.push(process.env.CLIENT_ID);
     }
-    const clientData = [];
-    clientData.push(process.env.CLIENT_ID);
 
     //if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
@@ -73,7 +73,14 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({form: form, accessToken: data?.accessToken, storeHash: data?.storeHash, clientID: 'process.env.CLIENT_ID', client: clientData})
+            body: JSON.stringify({
+                form: form,
+                accessToken: data?.accessToken,
+                storeHash: data?.storeHash,
+                clientID: 'process.env.CLIENT_ID',
+                client: clientData,
+                clientI: process.env.CLIENT_ID,
+            })
         })
         .then((data) => {
             console.log('Subscribe: data', data);
