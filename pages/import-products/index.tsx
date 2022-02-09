@@ -28,8 +28,8 @@ const importProducts = ({formData}: FormProps) => {
         clientData.push(process.env.CLIENT_ID);
     }
 
-    console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
-    console.log('dataImportProduct', dataImportProduct);
+    // console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
+    // console.log('dataImportProduct', dataImportProduct);
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
