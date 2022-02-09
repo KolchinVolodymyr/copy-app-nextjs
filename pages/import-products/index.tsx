@@ -24,6 +24,8 @@ const importProducts = ({formData}: FormProps) => {
             dataImportProduct.push(...el.variants)
         })
     }
+    const clientData = [];
+    clientData.push(process.env.CLIENT_ID);
 
     //if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
@@ -71,7 +73,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({form: form, accessToken: data?.accessToken, storeHash: data?.storeHash, clientID: process.env.CLIENT_ID})
+            body: JSON.stringify({form: form, accessToken: data?.accessToken, storeHash: data?.storeHash, clientID: 'process.env.CLIENT_ID', client: clientData})
         })
         .then((data) => {
             console.log('Subscribe: data', data);
