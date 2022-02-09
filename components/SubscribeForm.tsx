@@ -2,7 +2,6 @@ import { Panel, Flex, FormGroup, Input, Message, Checkbox, Button } from '@bigco
 import {ChangeEvent, useState} from "react";
 
 const SubscribeForm = (data) => {
-    console.log('data', data);
     const [isShownSuccessSubscribe, setIsShownSuccessSubscribe] = useState(false);
     const [isShownErrorSubscribe, setIsShownErrorSubscribe] = useState(false);
     const [isLoadingSubscribeShowEmail, setIsLoadingSubscribeShowEmail] = useState(false);
@@ -23,7 +22,6 @@ const SubscribeForm = (data) => {
     };
 
     const onClickBtnSubscribe = (e) => {
-        console.log('form', form)
         if(form.email === '' ) {
             setIsLoadingSubscribeShowEmail(true);
             return;
@@ -37,7 +35,10 @@ const SubscribeForm = (data) => {
             e.target.setAttribute('disabled', 'true');
             e.target.parentElement.setAttribute('disabled', 'true');
         }
-        fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
+        // https://express-heroku-app-email.herokuapp.com/send
+        // http://localhost:8080/send
+        console.log('ccccc')
+        fetch('http://localhost:8080/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -50,6 +51,7 @@ const SubscribeForm = (data) => {
             })
         })
             .then((data) => {
+                console.log('data', data);
                 setIsShownSuccessSubscribe(!isShownSuccessSubscribe);
             }).catch((error)=> {
             setIsShownErrorSubscribe(!isShownErrorSubscribe);
