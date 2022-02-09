@@ -71,7 +71,7 @@ const importProducts = ({formData}: FormProps) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({form: form, accessToken:data.accessToken, storeHash:data.storeHash})
+            body: JSON.stringify({form: form, accessToken: data?.accessToken, storeHash: data?.storeHash, clientID: process.env.CLIENT_ID})
         })
         .then((data) => {
             console.log('Subscribe: data', data);
