@@ -111,7 +111,7 @@ const importProducts = ({formData}: FormProps) => {
     return (
         <Panel>
             {isLoadingShow &&
-                <Loading />;
+                <Loading />
             }
             <Panel header="Download products BigCommerce">
                 <CSVLink
