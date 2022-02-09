@@ -11,14 +11,15 @@ interface FormProps {
 
 const importProducts = ({formData}: FormProps) => {
     const [isShownSuccess, setIsShownSuccess] = useState(false);
+    const [isShownSuccessSubscribe, setIsShownSuccessSubscribe] = useState(false);
+    const [isShownErrorSubscribe, setIsShownErrorSubscribe] = useState(false);
     const [isShownError, setIsShownError] = useState(false);
     const [formEmail, setFormEmail] = useState({ email: '' });
     const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
     const dataImportProduct = [];
     const { error, isLoading, list = [], meta = {}, mutateList=[], data } = useProductListAll();
-    console.log('data', data);
-    // console.log('accessToken+accessToken', accessToken);
+
     const clientData = [];
     if(!isLoading) {
         list.forEach((el)=>{
@@ -26,7 +27,7 @@ const importProducts = ({formData}: FormProps) => {
         })
         clientData.push(process.env.CLIENT_ID);
     }
-    console.log('process.env.NEXT_PUBLIC_CLIENT_ID', process.env.NEXT_PUBLIC_CLIENT_ID);
+
     console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
@@ -67,9 +68,7 @@ const importProducts = ({formData}: FormProps) => {
         })
     }
     const onClickBtnSubscribe = () => {
-        console.log('onClickBtnSubscribe');
-        console.log("form", form);
-        fetch('http://localhost:8080/subscribe', {
+        fetch('http://localhost:8080/scribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -82,9 +81,11 @@ const importProducts = ({formData}: FormProps) => {
             })
         })
         .then((data) => {
-            console.log('Subscribe: data', data);
+            console.log('data', data)
+            setIsShownSuccessSubscribe(!isShownSuccessSubscribe);
         }).catch((error)=> {
-            console.log('Subscribe: error', error)
+            console.log("error", error);
+            setIsShownErrorSubscribe(!isShownErrorSubscribe);
         })
         .finally(()=>{
             console.log('Subscribe: finally');
@@ -148,6 +149,20 @@ const importProducts = ({formData}: FormProps) => {
                         onChange={handleChangeForm}
                     />
                 </FormGroup>
+                {isShownSuccessSubscribe &&
+                    <Message
+                        type="success"
+                        messages={[{ text: 'Email sent successfully ' }]}
+                        marginVertical="medium"
+                    />
+                }
+                {isShownErrorSubscribe &&
+                    <Message
+                        type="error"
+                        messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
+                        marginVertical="medium"
+                    />
+                }
                 <FormGroup>
                     <Checkbox
                         name="daily"
