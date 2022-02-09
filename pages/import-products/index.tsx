@@ -68,7 +68,7 @@ const importProducts = ({formData}: FormProps) => {
         })
     }
     const onClickBtnSubscribe = () => {
-        fetch('http://localhost:8080/subscribe', {
+        fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
