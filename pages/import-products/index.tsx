@@ -15,6 +15,7 @@ const importProducts = ({formData}: FormProps) => {
     const [isShownErrorSubscribe, setIsShownErrorSubscribe] = useState(false);
     const [isShownError, setIsShownError] = useState(false);
     const [isLoadingShow, setIsLoadingShow] = useState(false);
+    const [isLoadingSubscribeShow, setIsLoadingSubscribeShow] = useState(false);
     const [formEmail, setFormEmail] = useState({ email: '' });
     const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
@@ -56,35 +57,29 @@ const importProducts = ({formData}: FormProps) => {
     const onClickBtnSend = () => {
     // https://express-heroku-app-email.herokuapp.com/send
     // http://localhost:8080/send
-    console.log('isLoadingShow-1', isLoadingShow);
-    setIsLoadingShow(true);
-    console.log('isLoadingShow-2', isLoadingShow);
-        setTimeout(() => {
-        console.log("this is the first message");
-        fetch('http://localhost:8080/send', {
+        setIsLoadingShow(true);
+        fetch('https://express-heroku-app-email.herokuapp.com/send', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({dataSCV: dataImportProduct, formEmail: formEmail})
         }).then((response)=> {
-            setTimeout(() => {console.log("this is the first message")}, 3000);
-            console.log('response');
             setIsShownSuccess(!isShownSuccess);
         }).catch((error)=> {
-            console.log('error');
             setIsShownError(!isShownError);
         })
         .finally(()=>{
-            console.log('finally');
             setIsLoadingShow(false);
-            console.log('isLoadingShow', isLoadingShow);
+            setTimeout(() => {
+                setIsShownSuccess(false);
+                setIsShownError(false);
+            }, 3000);
         })
-
-         }, 3000);
     }
     const onClickBtnSubscribe = () => {
-        fetch('http://localhost:8080/subscribe', {
+        setIsLoadingSubscribeShowShow(true);
+        fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -97,22 +92,22 @@ const importProducts = ({formData}: FormProps) => {
             })
         })
         .then((data) => {
-            console.log('data', data)
             setIsShownSuccessSubscribe(!isShownSuccessSubscribe);
         }).catch((error)=> {
-            console.log("error", error);
             setIsShownErrorSubscribe(!isShownErrorSubscribe);
         })
         .finally(()=>{
-            console.log('Subscribe: finally');
+            setIsLoadingSubscribeShowShow(false);
+            setTimeout(() => {
+                setIsShownSuccessSubscribe(false);
+                setIsShownErrorSubscribe(false);
+                setForm({ email:'', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
+            }, 3000);
         })
     }
 
     return (
         <Panel>
-            {isLoadingShow &&
-                <Loading />
-            }
             <Panel header="Download products BigCommerce">
                 <CSVLink
                     data={dataImportProduct}
@@ -122,41 +117,43 @@ const importProducts = ({formData}: FormProps) => {
                     Download.csv
                 </CSVLink>
             </Panel>
-            <StyledForm onSubmit={handleSubmit}>
-                <Panel header="Send BigCommerce product import file by mail">
-                    <FormGroup>
-                        <Input
-                            label="Enter Email"
-                            name="email"
-                            required
-                            value={formEmail.email}
-                            onChange={handleChange}
-                        />
-                    </FormGroup>
-                    {isShownError &&
-                        <Message
-                            type="error"
-                            messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
-                            marginVertical="medium"
-                        />
-                    }
-                    {isShownSuccess &&
-                        <Message
-                            type="success"
-                            messages={[{ text: 'Email sent successfully ' }]}
-                            marginVertical="medium"
-                        />
-                    }
-                    <Flex justifyContent="flex-end">
-                        <Button
-                            type="submit"
-                            onClick={onClickBtnSend}
-                        >
-                            Send Email
-                        </Button>
-                    </Flex>
-                </Panel>
-            </StyledForm>
+            {isLoadingShow ? <Loading /> :
+                <StyledForm onSubmit={handleSubmit}>
+                    <Panel header="Send BigCommerce product import file by mail">
+                        <FormGroup>
+                            <Input
+                                label="Enter Email"
+                                name="email"
+                                required
+                                value={formEmail.email}
+                                onChange={handleChange}
+                            />
+                        </FormGroup>
+                        {isShownError &&
+                            <Message
+                                type="error"
+                                messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
+                                marginVertical="medium"
+                            />
+                        }
+                        {isShownSuccess &&
+                            <Message
+                                type="success"
+                                messages={[{ text: 'Email sent successfully ' }]}
+                                marginVertical="medium"
+                            />
+                        }
+                        <Flex justifyContent="flex-end">
+                            <Button
+                                type="submit"
+                                onClick={onClickBtnSend}
+                            >
+                                Send Email
+                            </Button>
+                        </Flex>
+                    </Panel>
+                </StyledForm>
+            }
             <Panel header="Subscribe to our newsletter">
                 Get the latest updates on new products and stock level
                 <FormGroup>
