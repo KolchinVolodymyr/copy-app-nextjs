@@ -1,23 +1,16 @@
-import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Checkbox, Message} from '@bigcommerce/big-design';
+import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Message} from '@bigcommerce/big-design';
 import {useState, ChangeEvent} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
 import {useProductListAll} from '../../lib/hooks';
 import { CSVLink } from 'react-csv';
+import SubscribeForm from "@components/SubscribeForm";
 
-interface FormProps {
-    formData: FormData;
-}
 
-const importProducts = ({formData}: FormProps) => {
+const importProducts = () => {
     const [isShownSuccess, setIsShownSuccess] = useState(false);
-    const [isShownSuccessSubscribe, setIsShownSuccessSubscribe] = useState(false);
-    const [isShownErrorSubscribe, setIsShownErrorSubscribe] = useState(false);
     const [isShownError, setIsShownError] = useState(false);
-    const [isLoadingShow, setIsLoadingShow] = useState(false);
-    const [isLoadingSubscribeShow, setIsLoadingSubscribeShow] = useState(false);
     const [formEmail, setFormEmail] = useState({ email: '' });
-    const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
     const dataImportProduct = [];
     const { error, isLoading, list = [], meta = {}, mutateList=[], data } = useProductListAll();
@@ -30,8 +23,6 @@ const importProducts = ({formData}: FormProps) => {
         clientData.push(process.env.CLIENT_ID);
     }
 
-    // console.log('process.env.CLIENT_PUBLIC_ID', process.env.CLIENT_PUBLIC_ID);
-    // console.log('dataImportProduct', dataImportProduct);
     if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
 
@@ -40,24 +31,20 @@ const importProducts = ({formData}: FormProps) => {
         setFormEmail(prevForm => ({ ...prevForm, [formName]: value }));
     };
 
-    const handleChangeForm  = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-       const { name: formName, value } = event?.target;
-       setForm(prevForm => ({ ...prevForm, [formName]: value }));
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
     };
-    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { checked, name: formName } = event?.target;
-        setForm({ email:form.email, daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
-        setForm(prevForm => ({ ...prevForm, [formName]: checked }));
-    };
 
-    const onClickBtnSend = () => {
-    // https://express-heroku-app-email.herokuapp.com/send
-    // http://localhost:8080/send
-        setIsLoadingShow(true);
+    const onClickBtnSend = (e) => {
+        if(formEmail.email === '') {
+            return;
+        }
+        if (e.target.nodeName || e.target.parentElement.nodeName == 'BUTTON') {
+            e.target.setAttribute('disabled', 'true');
+            e.target.parentElement.setAttribute('disabled', 'true');
+        }
+        // https://express-heroku-app-email.herokuapp.com/send
+        // http://localhost:8080/send
         fetch('https://express-heroku-app-email.herokuapp.com/send', {
             method: 'POST',
             headers: {
@@ -70,39 +57,13 @@ const importProducts = ({formData}: FormProps) => {
             setIsShownError(!isShownError);
         })
         .finally(()=>{
-            setIsLoadingShow(false);
+            e.target.removeAttribute('disabled');
+            e.target.parentElement.removeAttribute('disabled');
             setTimeout(() => {
                 setIsShownSuccess(false);
                 setIsShownError(false);
-            }, 3000);
-        })
-    }
-    const onClickBtnSubscribe = () => {
-        setIsLoadingSubscribeShow(true);
-        fetch('https://express-heroku-app-email.herokuapp.com/subscribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                form: form,
-                accessToken: data?.accessToken,
-                storeHash: data?.storeHash,
-                clientID: process.env.CLIENT_PUBLIC_ID
-            })
-        })
-        .then((data) => {
-            setIsShownSuccessSubscribe(!isShownSuccessSubscribe);
-        }).catch((error)=> {
-            setIsShownErrorSubscribe(!isShownErrorSubscribe);
-        })
-        .finally(()=>{
-            setIsLoadingSubscribeShow(false);
-            setTimeout(() => {
-                setIsShownSuccessSubscribe(false);
-                setIsShownErrorSubscribe(false);
-                setForm({ email:'', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
-            }, 3000);
+                setFormEmail({ email: '' });
+            }, 4000);
         })
     }
 
@@ -117,111 +78,43 @@ const importProducts = ({formData}: FormProps) => {
                     Download.csv
                 </CSVLink>
             </Panel>
-            {isLoadingShow ? <Loading /> :
-                <StyledForm onSubmit={handleSubmit}>
-                    <Panel header="Send BigCommerce product import file by mail">
-                        <FormGroup>
-                            <Input
-                                label="Enter Email"
-                                name="email"
-                                required
-                                value={formEmail.email}
-                                onChange={handleChange}
-                            />
-                        </FormGroup>
-                        {isShownError &&
-                            <Message
-                                type="error"
-                                messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
-                                marginVertical="medium"
-                            />
-                        }
-                        {isShownSuccess &&
-                            <Message
-                                type="success"
-                                messages={[{ text: 'Email sent successfully ' }]}
-                                marginVertical="medium"
-                            />
-                        }
-                        <Flex justifyContent="flex-end">
-                            <Button
-                                type="submit"
-                                onClick={onClickBtnSend}
-                            >
-                                Send Email
-                            </Button>
-                        </Flex>
-                    </Panel>
-                </StyledForm>
-            }
-            {isLoadingSubscribeShow ? <Loading /> :
-                <Panel header="Subscribe to our newsletter">
-                    <p>Get the latest updates on new products and stock level</p>
+            <StyledForm onSubmit={handleSubmit}>
+                <Panel header="Send BigCommerce product import file by Email">
                     <FormGroup>
                         <Input
                             label="Enter Email"
                             name="email"
                             required
-                            value={form.email}
-                            onChange={handleChangeForm}
+                            value={formEmail.email}
+                            onChange={handleChange}
                         />
                     </FormGroup>
-                    {isShownSuccessSubscribe &&
-                        <Message
-                            type="success"
-                            messages={[{ text: 'Email sent successfully ' }]}
-                            marginVertical="medium"
-                        />
-                    }
-                    {isShownErrorSubscribe &&
+                    {isShownError &&
                         <Message
                             type="error"
                             messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
                             marginVertical="medium"
                         />
                     }
-                    <FormGroup>
-                        <Checkbox
-                            name="daily"
-                            checked={form.daily}
-                            onChange={handleCheckboxChange}
-                            label="Send daily"
+                    {isShownSuccess &&
+                        <Message
+                            type="success"
+                            messages={[{ text: 'Email sent successfully ' }]}
+                            marginVertical="medium"
                         />
-                        <Checkbox
-                            name="workingDay"
-                            checked={form.workingDay}
-                            onChange={handleCheckboxChange}
-                            label="Send daily (Monday through Friday only) "
-                        />
-                        <Checkbox
-                            name="weekly"
-                            checked={form.weekly}
-                            onChange={handleCheckboxChange}
-                            label="Sending weekly (1 email per week)"
-                        />
-                        <Checkbox
-                            name="monthly"
-                            checked={form.monthly}
-                            onChange={handleCheckboxChange}
-                            label="Sending monthly "
-                        />
-                        <Checkbox
-                            name="unsubscribe"
-                            checked={form.unsubscribe}
-                            onChange={handleCheckboxChange}
-                            label="Unsubscribe from mailing list "
-                        />
-                        <Flex justifyContent="flex-end">
-                            <Button
-                                type="submit"
-                                onClick={onClickBtnSubscribe}
-                            >
-                                Subscribe
-                            </Button>
-                        </Flex>
-                    </FormGroup>
+                    }
+                    <Flex justifyContent="flex-end">
+                        <Button
+                            type="submit"
+                            onClick={onClickBtnSend}
+                        >
+                            Send Email
+                        </Button>
+                    </Flex>
                 </Panel>
-            }
+            </StyledForm>
+
+            <SubscribeForm data={data}/>
         </Panel>
     );
 };
