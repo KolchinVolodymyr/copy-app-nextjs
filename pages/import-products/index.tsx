@@ -154,72 +154,74 @@ const importProducts = ({formData}: FormProps) => {
                     </Panel>
                 </StyledForm>
             }
-            <Panel header="Subscribe to our newsletter">
-                Get the latest updates on new products and stock level
-                <FormGroup>
-                    <Input
-                        label="Enter Email"
-                        name="email"
-                        required
-                        value={form.email}
-                        onChange={handleChangeForm}
-                    />
-                </FormGroup>
-                {isShownSuccessSubscribe &&
-                    <Message
-                        type="success"
-                        messages={[{ text: 'Email sent successfully ' }]}
-                        marginVertical="medium"
-                    />
-                }
-                {isShownErrorSubscribe &&
-                    <Message
-                        type="error"
-                        messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
-                        marginVertical="medium"
-                    />
-                }
-                <FormGroup>
-                    <Checkbox
-                        name="daily"
-                        checked={form.daily}
-                        onChange={handleCheckboxChange}
-                        label="Send daily"
-                    />
-                    <Checkbox
-                        name="workingDay"
-                        checked={form.workingDay}
-                        onChange={handleCheckboxChange}
-                        label="Send daily (Monday through Friday only) "
-                    />
-                    <Checkbox
-                        name="weekly"
-                        checked={form.weekly}
-                        onChange={handleCheckboxChange}
-                        label="Sending weekly (1 email per week)"
-                    />
-                    <Checkbox
-                        name="monthly"
-                        checked={form.monthly}
-                        onChange={handleCheckboxChange}
-                        label="Sending monthly "
-                    />
-                    <Checkbox
-                        name="unsubscribe"
-                        checked={form.unsubscribe}
-                        onChange={handleCheckboxChange}
-                        label="Unsubscribe from mailing list "
-                    />
-                    <Flex justifyContent="flex-end">
-                        <Button
-                            type="submit"
-                            onClick={onClickBtnSubscribe}
-                        >
-                            Subscribe
-                        </Button>
-                    </Flex>
-                </FormGroup>
-            </Panel>
+            {isLoadingSubscribeShow ? <Loading /> :
+                <Panel header="Subscribe to our newsletter">
+                    <p>Get the latest updates on new products and stock level</p>
+                    <FormGroup>
+                        <Input
+                            label="Enter Email"
+                            name="email"
+                            required
+                            value={form.email}
+                            onChange={handleChangeForm}
+                        />
+                    </FormGroup>
+                    {isShownSuccessSubscribe &&
+                        <Message
+                            type="success"
+                            messages={[{ text: 'Email sent successfully ' }]}
+                            marginVertical="medium"
+                        />
+                    }
+                    {isShownErrorSubscribe &&
+                        <Message
+                            type="error"
+                            messages={[{ text: 'An error occurred, the email was not sent. Please repeat again ' }]}
+                            marginVertical="medium"
+                        />
+                    }
+                    <FormGroup>
+                        <Checkbox
+                            name="daily"
+                            checked={form.daily}
+                            onChange={handleCheckboxChange}
+                            label="Send daily"
+                        />
+                        <Checkbox
+                            name="workingDay"
+                            checked={form.workingDay}
+                            onChange={handleCheckboxChange}
+                            label="Send daily (Monday through Friday only) "
+                        />
+                        <Checkbox
+                            name="weekly"
+                            checked={form.weekly}
+                            onChange={handleCheckboxChange}
+                            label="Sending weekly (1 email per week)"
+                        />
+                        <Checkbox
+                            name="monthly"
+                            checked={form.monthly}
+                            onChange={handleCheckboxChange}
+                            label="Sending monthly "
+                        />
+                        <Checkbox
+                            name="unsubscribe"
+                            checked={form.unsubscribe}
+                            onChange={handleCheckboxChange}
+                            label="Unsubscribe from mailing list "
+                        />
+                        <Flex justifyContent="flex-end">
+                            <Button
+                                type="submit"
+                                onClick={onClickBtnSubscribe}
+                            >
+                                Subscribe
+                            </Button>
+                        </Flex>
+                    </FormGroup>
+                </Panel>
+            }
         </Panel>
     );
 };
