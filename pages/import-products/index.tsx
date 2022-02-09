@@ -14,6 +14,7 @@ const importProducts = ({formData}: FormProps) => {
     const [isShownSuccessSubscribe, setIsShownSuccessSubscribe] = useState(false);
     const [isShownErrorSubscribe, setIsShownErrorSubscribe] = useState(false);
     const [isShownError, setIsShownError] = useState(false);
+    const [isLoadingShow, setIsLoadingShow] = useState(false);
     const [formEmail, setFormEmail] = useState({ email: '' });
     const [form, setForm] = useState({ email: '', daily: false, weekly: false, workingDay: false, monthly:false, unsubscribe: false });
 
@@ -55,8 +56,9 @@ const importProducts = ({formData}: FormProps) => {
     const onClickBtnSend = () => {
     // https://express-heroku-app-email.herokuapp.com/send
     // http://localhost:8080/send
-    console.log('isLoading', isLoading);
-    if (isLoading) return <Loading />;
+    console.log('isLoadingShow-1', isLoadingShow);
+    setIsLoadingShow(true);
+    console.log('isLoadingShow-2', isLoadingShow);
         setTimeout(() => {
         console.log("this is the first message");
         fetch('http://localhost:8080/send', {
@@ -75,6 +77,8 @@ const importProducts = ({formData}: FormProps) => {
         })
         .finally(()=>{
             console.log('finally');
+            setIsLoadingShow(false);
+            console.log('isLoadingShow', isLoadingShow);
         })
 
          }, 3000);
@@ -106,6 +110,9 @@ const importProducts = ({formData}: FormProps) => {
 
     return (
         <Panel>
+            {isLoadingShow &&
+                <Loading />
+            }
             <Panel header="Download products BigCommerce">
                 <CSVLink
                     data={dataImportProduct}
