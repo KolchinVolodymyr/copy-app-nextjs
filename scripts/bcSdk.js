@@ -1,4 +1,7 @@
+import  $ from 'jquery';
+
 export function bigCommerceSDK(context) {
+
         console.log('111111111111111111');
     if (typeof window === "undefined") return;
     console.log('222222222222222');
@@ -9,6 +12,7 @@ export function bigCommerceSDK(context) {
     let js, bcjs = d.getElementsByTagName(s)[0];
     console.log('d', d);
     if (d.getElementById(id)) return;
+    console.log('$$$',$);
 
     js = d.createElement(s);
     console.log('js', js);
