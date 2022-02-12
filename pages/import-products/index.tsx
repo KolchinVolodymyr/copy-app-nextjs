@@ -148,7 +148,9 @@ const importProducts = () => {
                 }, 4000);
             })
     }
-    if (typeof document !== "undefined") {
+    if (typeof document === "undefined") {
+        return
+    } else {
     return (
         <Panel>
 
