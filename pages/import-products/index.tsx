@@ -149,32 +149,30 @@ const importProducts = () => {
             })
     }
     useEffect(() => {
-        var aScript = document.createElement('script');
+        const aScript = document.createElement('script');
         aScript.type = 'text/javascript';
-        aScript.src = "https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js";
+        aScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js";
 
         document.head.appendChild(aScript);
         aScript.onload = () => {
             console.log('script load');
-            <Script id="show-ban" strategy="beforeInteractive">
-                {`$(document).ready(function() {
-                $('#my-custom-id').cron({
-                initial: "42 3 * * *",
-                onChange: function() {
-                    $('#example1-val').text($(this).cron("value"));
-                }
-                });
-            });`}
-            </Script>
         };
-        var bScript = document.createElement('script');
+        const bScript = document.createElement('script');
         bScript.type = 'text/javascript';
-        bScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js";
+        bScript.src = "https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js";
 
         document.head.appendChild(bScript);
         bScript.onload = () => {
-
+            $(document).ready(function() {
+                $('#my-custom-id').cron({
+                    initial: "42 3 * * *",
+                    onChange: function() {
+                        $('#example1-val').text($(this).cron("value"));
+                    }
+                });
+            })
         };
+
     }, [])
     //stripe_load();
 
