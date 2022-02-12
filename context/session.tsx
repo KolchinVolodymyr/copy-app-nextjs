@@ -19,6 +19,7 @@ const SessionProvider = ({ children }) => {
         console.log('document === "undefined"')
     } else  {
         console.log('document !== "undefined"')
+        console.log('0001$(document)', $(document)[0])
     }
     useEffect(() => {
         if (query.context) {
@@ -38,6 +39,7 @@ const SessionProvider = ({ children }) => {
                 console.log('22document === "undefined"')
             } else  {
                 console.log('22document !== "undefined"')
+                console.log('122$(document)', $(document)[0])
             }
         }
     }, [query.context]);
