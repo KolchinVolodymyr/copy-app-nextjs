@@ -1,7 +1,8 @@
 import useSWR from 'swr';
 import { useSession } from '../context/session';
 import { ErrorProps, ListItem, Order, QueryParams, ShippingAndProductsInfo } from '../types';
-
+import $ from 'jquery';
+// import cron from 'jquery-cron';
 async function fetcher(url: string, query: string) {
     const res = await fetch(`${url}?${query}`);
 
@@ -54,7 +55,10 @@ export function useProductListAll(query?: QueryParams) {
     // Use an array to send multiple arguments to fetcher
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
 
-    // console.log('data',  data);
+    console.log('$',  $);
+    console.log('my-custom-id', $('#my-custom-id'));
+    console.log('my-custom-id-home', $('#my-custom-id-home'));
+
     // console.log('data.accessToken', data.accessToken);
     // console.log('query', query);
     // console.log('context', context);
