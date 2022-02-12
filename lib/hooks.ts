@@ -56,9 +56,6 @@ export function useProductListAll(query?: QueryParams) {
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
     if (typeof window === "undefined") {
         console.log('window === "undefined"')
-        console.log('$',  $);
-        console.log('my-custom-id', $('#my-custom-id'));
-        console.log('my-custom-id-home', $('#my-custom-id-home'));
     } else {
         console.log('window !== "undefined"')
         console.log('$',  $);
@@ -68,9 +65,6 @@ export function useProductListAll(query?: QueryParams) {
 
     if (typeof document === "undefined") {
         console.log('document === "undefined"')
-        console.log('$',  $);
-        console.log('my-custom-id', $('#my-custom-id'));
-        console.log('my-custom-id-home', $('#my-custom-id-home'));
     } else {
         console.log('document', $(document))
         console.log('document !== "undefined"')
