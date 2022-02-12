@@ -149,7 +149,7 @@ const importProducts = () => {
             })
     }
     if (typeof document === "undefined") {
-        return
+        return null
     } else {
     return (
         <Panel>
