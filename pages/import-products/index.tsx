@@ -30,7 +30,21 @@ const importProducts = () => {
 
     // if (isLoading) return <Loading />;
     if (error) return <ErrorMessage error={error} />;
-
+    if (typeof document === "undefined") {
+        console.log('document === "undefined"');
+    } else {
+        console.log('document !== "undefined"');
+        return (<Script id="show-ban" >
+            {`$(document).ready(function() {
+                $('#my-custom-id').cron({
+                initial: "42 3 * * *",
+                onChange: function() {
+                    $('#example1-val').text($(this).cron("value"));
+                }
+                });
+            });`}
+        </Script>)
+    }
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name: formName, value } = event?.target;
         setFormEmail(prevForm => ({ ...prevForm, [formName]: value }));
