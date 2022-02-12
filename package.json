@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "next": "^11.1.3",
+    "next-scripts": "^0.3.4",
     "node-bigcommerce": "github:bigcommerce/node-bigcommerce",
     "react": "^17.0.1",
     "react-csv": "^2.2.2",
@@ -37,7 +38,8 @@
     "react-schedule-job": "^1.2.0",
     "reactjs-crontab": "^4.5.0",
     "styled-components": "^5.3.3",
-    "swr": "^0.4.1"
+    "swr": "^0.4.1",
+    "webpack": "^5.68.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",

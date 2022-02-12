@@ -2,7 +2,8 @@ import useSWR from 'swr';
 import { useSession } from '../context/session';
 import { ErrorProps, ListItem, Order, QueryParams, ShippingAndProductsInfo } from '../types';
 import $ from 'jquery';
-import cron from 'node_modules/jquery-cron/dist/jquery-cron-min';
+// import cron from 'jquery-cron';
+// import Script from 'next/script'
 
 async function fetcher(url: string, query: string) {
     const res = await fetch(`${url}?${query}`);
@@ -68,10 +69,16 @@ export function useProductListAll(query?: QueryParams) {
         console.log('document === "undefined"')
     } else {
         console.log('document', $(document));
-        console.log('cron', cron);
+        // console.log('cron', cron);
         console.log('document !== "undefined"');
         console.log('$',  $);
         console.log('my-custom-id', $('#my-custom-id'));
+        $(document).ready(function() {
+           console.log('ready' )
+            console.log('ready - my-custom-id', $('#my-custom-id'));
+            // $('#my-custom-id').cron();
+            // $('#selector').cron(); // apply cron with default options
+        });
     }
 
     // console.log('data.accessToken', data.accessToken);
