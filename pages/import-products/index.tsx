@@ -1,5 +1,5 @@
 import {Button, Flex, FormGroup, Input, Panel, Form as StyledForm, Message, Checkbox} from '@bigcommerce/big-design';
-import {useState, ChangeEvent} from 'react';
+import {useState, ChangeEvent, useEffect} from 'react';
 import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
 import {useProductListAll} from '../../lib/hooks';
@@ -148,9 +148,38 @@ const importProducts = () => {
                 }, 4000);
             })
     }
-    if (typeof document === "undefined") {
-        return null
-    } else {
+    useEffect(() => {
+        var aScript = document.createElement('script');
+        aScript.type = 'text/javascript';
+        aScript.src = "https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js";
+
+        document.head.appendChild(aScript);
+        aScript.onload = () => {
+            console.log('script load');
+            <Script id="show-ban" strategy="beforeInteractive">
+                {`$(document).ready(function() {
+                $('#my-custom-id').cron({
+                initial: "42 3 * * *",
+                onChange: function() {
+                    $('#example1-val').text($(this).cron("value"));
+                }
+                });
+            });`}
+            </Script>
+        };
+        var bScript = document.createElement('script');
+        bScript.type = 'text/javascript';
+        bScript.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js";
+
+        document.head.appendChild(bScript);
+        bScript.onload = () => {
+
+        };
+    }, [])
+    //stripe_load();
+
+
+
     return (
         <Panel>
 
@@ -160,7 +189,7 @@ const importProducts = () => {
                 {`document.getElementById('my-custom-id').classList.add('hidden')`}
             </Script>
 
-            <Script id="show-ban" >
+            <Script id="show-ban" strategy="beforeInteractive">
                 {`$(document).ready(function() {
                 $('#my-custom-id').cron({
                 initial: "42 3 * * *",
@@ -298,7 +327,7 @@ const importProducts = () => {
                 </FormGroup>
             </Panel>
         </Panel>
-    );}
+    );
 };
 
 export default importProducts;
