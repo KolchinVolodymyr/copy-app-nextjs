@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { bigCommerceSDK } from '../scripts/bcSdk';
-import { customFunCron } from '../scripts/customFun';
-
+import $ from 'jquery';
 const SessionContext = createContext({ context: '' });
 
 const SessionProvider = ({ children }) => {
@@ -14,7 +13,7 @@ const SessionProvider = ({ children }) => {
             setContext(query.context.toString());
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
-            customFunCron('hello');
+            console.log('$(h2)', $('h2'));
         }
     }, [query.context]);
 
