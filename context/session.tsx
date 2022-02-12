@@ -26,7 +26,7 @@ const SessionProvider = ({ children }) => {
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
             console.log('1$(h2)', $('h2'));
-            console.log('1$(document)', $(document))
+            console.log('1$(document)', $(document)[0])
             $(document).ready(function() {
                 // $('#selector')
                 console.log('1Hi !');
