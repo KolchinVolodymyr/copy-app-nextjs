@@ -24,7 +24,8 @@ export function bigCommerceSDK(context) {
 
     $(document).ready(function() {
         // $('#selector')
-        console.log('Hi !')
+        console.log('Hi !');
+        console.log('$(h2)', $('h2'))
     });
 
     window.bcAsyncInit = function() {
