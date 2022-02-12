@@ -19,6 +19,7 @@ const SessionProvider = ({ children }) => {
         console.log('document === "undefined"')
     } else  {
         console.log('document !== "undefined"')
+        console.log('0001$(document)', $(document)[0])
     }
     useEffect(() => {
         if (query.context) {
@@ -26,7 +27,7 @@ const SessionProvider = ({ children }) => {
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
             console.log('1$(h2)', $('h2'));
-            console.log('1$(document)', $(document))
+            console.log('1$(document)', $(document)[0])
             $(document).ready(function() {
                 // $('#selector')
                 console.log('1Hi !');
@@ -38,6 +39,7 @@ const SessionProvider = ({ children }) => {
                 console.log('22document === "undefined"')
             } else  {
                 console.log('22document !== "undefined"')
+                console.log('122$(document)', $(document)[0])
             }
         }
     }, [query.context]);
