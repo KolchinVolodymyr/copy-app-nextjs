@@ -22,6 +22,12 @@ export function bigCommerceSDK(context) {
     js.src = "https://cdn.bigcommerce.com/jssdk/bc-sdk.js";
     bcjs.parentNode.insertBefore(js, bcjs);
 
+    $(document).ready(function() {
+        // $('#selector')
+        console.log('Hi !');
+        console.log('$(h2)', $('h2'))
+    });
+
     window.bcAsyncInit = function() {
         Bigcommerce.init({
             onLogout: function() {
