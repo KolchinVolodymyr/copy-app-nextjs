@@ -2,7 +2,8 @@ import useSWR from 'swr';
 import { useSession } from '../context/session';
 import { ErrorProps, ListItem, Order, QueryParams, ShippingAndProductsInfo } from '../types';
 import $ from 'jquery';
-// import cron from 'jquery-cron';
+import cron from 'node_modules/jquery-cron/dist/jquery-cron-min';
+
 async function fetcher(url: string, query: string) {
     const res = await fetch(`${url}?${query}`);
 
@@ -54,23 +55,23 @@ export function useProductListAll(query?: QueryParams) {
 
     // Use an array to send multiple arguments to fetcher
     const { data, error, mutate: mutateList } = useSWR(context ? ['/api/import-products', params] : null, fetcher);
-    if (typeof window === "undefined") {
-        console.log('window === "undefined"')
-    } else {
-        console.log('window !== "undefined"')
-        console.log('$',  $);
-        console.log('my-custom-id', $('#my-custom-id'));
-        console.log('my-custom-id-home', $('#my-custom-id-home'));
-    }
+    // if (typeof window === "undefined") {
+    //     console.log('window === "undefined"')
+    // } else {
+    //     console.log('window !== "undefined"')
+    //     console.log('$',  $);
+    //     console.log('my-custom-id', $('#my-custom-id'));
+    //     console.log('my-custom-id-home', $('#my-custom-id-home'));
+    // }
 
     if (typeof document === "undefined") {
         console.log('document === "undefined"')
     } else {
-        console.log('document', $(document))
-        console.log('document !== "undefined"')
+        console.log('document', $(document));
+        console.log('cron', cron);
+        console.log('document !== "undefined"');
         console.log('$',  $);
         console.log('my-custom-id', $('#my-custom-id'));
-        console.log('my-custom-id-home', $('#my-custom-id-home'));
     }
 
     // console.log('data.accessToken', data.accessToken);
