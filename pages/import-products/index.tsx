@@ -163,14 +163,15 @@ const importProducts = () => {
 
         document.head.appendChild(bScript);
         bScript.onload = () => {
-            $(document).ready(function() {
-                $('#my-custom-id').cron({
-                    initial: "42 3 * * *",
-                    onChange: function() {
-                        $('#example1-val').text($(this).cron("value"));
-                    }
-                });
-            })
+            console.log('script load 222')
+        };
+        const cScript = document.createElement('script');
+        cScript.type = 'text/javascript';
+        cScript.src = "./custom.js";
+
+        document.head.appendChild(cScript);
+        cScript.onload = () => {
+            console.log('script load 3!')
         };
 
     }, [])
@@ -181,22 +182,7 @@ const importProducts = () => {
     return (
         <Panel>
 
-            <Script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" strategy="beforeInteractive"/>
-            <Script src="https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js" strategy="beforeInteractive"/>
-            <Script id="show-banner" strategy="beforeInteractive">
-                {`document.getElementById('my-custom-id').classList.add('hidden')`}
-            </Script>
 
-            <Script id="show-ban" strategy="beforeInteractive">
-                {`$(document).ready(function() {
-                $('#my-custom-id').cron({
-                initial: "42 3 * * *",
-                onChange: function() {
-                    $('#example1-val').text($(this).cron("value"));
-                }
-                });
-            });`}
-            </Script>
 
             <div id='cron'/>
             <div id='example1-val'></div>
