@@ -14,7 +14,7 @@ const SessionProvider = ({ children }) => {
             setContext(query.context.toString());
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
-            customFunCron();
+            customFunCron('hello');
         }
     }, [query.context]);
 
