@@ -138,7 +138,7 @@ const importProducts = () => {
     return (
         <Panel>
 
-            <Script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" strategy="beforeInteractive"/>
+            <Script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" strategy="beforeInteractive"/>
             <Script src="https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js" strategy="beforeInteractive"/>
             <Script id="show-banner" strategy="beforeInteractive">
                 {`document.getElementById('my-custom-id').classList.add('hidden')`}
@@ -155,7 +155,7 @@ const importProducts = () => {
             });`}
             </Script>
 
-            <div id='cron'></div>
+            <div id='cron'/>
             <div id='example1-val'></div>
             <div id='my-custom-id' className=' 1122'>qwerty</div>
             <Panel header="Download products BigCommerce">

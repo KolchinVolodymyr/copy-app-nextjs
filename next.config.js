@@ -1,8 +1,5 @@
 module.exports = {
-    plugins: [
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        }),
-    ]
-};
+    env: {
+        CLIENT_PUBLIC_ID: process.env.CLIENT_ID,
+    },
+}
