@@ -9,38 +9,38 @@ const SessionProvider = ({ children }) => {
     const [context, setContext] = useState('');
     // console.log('3$(h2)', $('h2'));
 
-    if (typeof window === "undefined") {
-        console.log('window === "undefined"')
-    } else  {
-        console.log('window !== "undefined"')
-    }
-
-    if (typeof document === "undefined") {
-        console.log('document === "undefined"')
-    } else  {
-        console.log('document !== "undefined"')
-        console.log('0001$(document)', $(document)[0])
-    }
+    // if (typeof window === "undefined") {
+    //     console.log('window === "undefined"')
+    // } else  {
+    //     console.log('window !== "undefined"')
+    // }
+    //
+    // if (typeof document === "undefined") {
+    //     console.log('document === "undefined"')
+    // } else  {
+    //     console.log('document !== "undefined"')
+    //     console.log('0001$(document)', $(document)[0])
+    // }
     useEffect(() => {
         if (query.context) {
             setContext(query.context.toString());
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
-            console.log('1$(h2)', $('h2'));
-            console.log('1$(document)', $(document)[0])
-            $(document).ready(function() {
-                // $('#selector')
-                console.log('1Hi !');
-                console.log('1$(h2)', $('h2'));
-                console.log('1my-custom-id-home', $('#my-custom-id-home'))
-            });
-
-            if (typeof document === "undefined") {
-                console.log('22document === "undefined"')
-            } else  {
-                console.log('22document !== "undefined"')
-                console.log('122$(document)', $(document)[0])
-            }
+            // console.log('1$(h2)', $('h2'));
+            // console.log('1$(document)', $(document)[0])
+            // $(document).ready(function() {
+            //     // $('#selector')
+            //     console.log('1Hi !');
+            //     console.log('1$(h2)', $('h2'));
+            //     console.log('1my-custom-id-home', $('#my-custom-id-home'))
+            // });
+            //
+            // if (typeof document === "undefined") {
+            //     console.log('22document === "undefined"')
+            // } else  {
+            //     console.log('22document !== "undefined"')
+            //     console.log('122$(document)', $(document)[0])
+            // }
         }
     }, [query.context]);
 
