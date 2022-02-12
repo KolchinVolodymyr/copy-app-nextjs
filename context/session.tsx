@@ -14,6 +14,13 @@ const SessionProvider = ({ children }) => {
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
             console.log('$(h2)', $('h2'));
+            console.log('$(document)', $(document))
+            $(document).ready(function() {
+                // $('#selector')
+                console.log('1Hi !');
+                console.log('1$(h2)', $('h2'));
+                console.log('1my-custom-id-home', $('#my-custom-id-home'))
+            });
         }
     }, [query.context]);
 
