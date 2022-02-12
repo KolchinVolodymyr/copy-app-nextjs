@@ -7,14 +7,15 @@ const SessionContext = createContext({ context: '' });
 const SessionProvider = ({ children }) => {
     const { query } = useRouter();
     const [context, setContext] = useState('');
-
+    console.log('3$(h2)', $('h2'));
+    console.log('3$(document)', $(document))
     useEffect(() => {
         if (query.context) {
             setContext(query.context.toString());
             // Keeps app in sync with BC (e.g. heatbeat, user logout, etc)
             bigCommerceSDK(query.context);
-            console.log('$(h2)', $('h2'));
-            console.log('$(document)', $(document))
+            console.log('1$(h2)', $('h2'));
+            console.log('1$(document)', $(document))
             $(document).ready(function() {
                 // $('#selector')
                 console.log('1Hi !');
