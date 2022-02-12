@@ -4,7 +4,8 @@ import ErrorMessage from '../../components/error';
 import Loading from '../../components/loading';
 import {useProductListAll} from '../../lib/hooks';
 import { CSVLink } from 'react-csv';
-
+import Script from 'next/script'
+import $ from "jquery";
 
 const importProducts = () => {
     const [isShownSuccess, setIsShownSuccess] = useState(false);
@@ -136,7 +137,27 @@ const importProducts = () => {
 
     return (
         <Panel>
-            <div id='my-custom-id'>qwerty</div>
+
+            <Script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" strategy="beforeInteractive"/>
+            <Script src="https://admin.fa.gov.sa/CDN/admin/shawnchin-jquery-cron/cron/jquery-cron-min.js" strategy="beforeInteractive"/>
+            <Script id="show-banner" strategy="beforeInteractive">
+                {`document.getElementById('my-custom-id').classList.add('hidden')`}
+            </Script>
+
+            <Script id="show-ban" >
+                {`$(document).ready(function() {
+                $('#my-custom-id').cron({
+                initial: "42 3 * * *",
+                onChange: function() {
+                    $('#example1-val').text($(this).cron("value"));
+                }
+                });
+            });`}
+            </Script>
+
+            <div id='cron'/>
+            <div id='example1-val'></div>
+            <div id='my-custom-id' className=' 1122'>qwerty</div>
             <Panel header="Download products BigCommerce">
                 <CSVLink
                     data={dataImportProduct}
