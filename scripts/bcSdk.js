@@ -16,6 +16,7 @@ export function bigCommerceSDK(context) {
 
     js = d.createElement(s);
     console.log('js', js);
+
     js.id = id;
     js.async = true;
     js.src = "https://cdn.bigcommerce.com/jssdk/bc-sdk.js";
