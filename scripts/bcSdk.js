@@ -1,6 +1,8 @@
 export function bigCommerceSDK(context) {
+        console.log('111111111111111111');
     if (typeof window === "undefined") return;
-
+    console.log('222222222222222');
+    console.log('window', window)
     const s = 'script';
     const id = 'bigcommerce-sdk-js';
     const d = document;
