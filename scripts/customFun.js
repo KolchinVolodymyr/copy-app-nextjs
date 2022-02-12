@@ -1,5 +1,5 @@
 import $ from 'jquery';
 
-export function customFunction() {
+export function customFun() {
     console.log('sssssssssssssssd')
 }
