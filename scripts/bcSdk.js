@@ -29,7 +29,10 @@ export function bigCommerceSDK(context) {
         console.log('Hi !');
         console.log('$(h2)', $('h2'));
         console.log('my-custom-id', $('#my-custom-id'))
+        console.log('my-custom-id-home', $('#my-custom-id-home'))
     });
+    console.log('my-custom-id', $('#my-custom-id'))
+    console.log('my-custom-id-home', $('#my-custom-id-home'))
 
     window.bcAsyncInit = function() {
         Bigcommerce.init({

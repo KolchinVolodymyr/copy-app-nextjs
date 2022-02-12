@@ -13,6 +13,7 @@ const Index = () => {
     return (
         <Panel header="Homepage">
             <Flex>
+                <div id='my-custom-id-home'></div>
                 <StyledBox border="box" borderRadius="normal" marginRight="xLarge" padding="medium">
                     <H4>Inventory count</H4>
                     <H1 marginBottom="none">{summary.inventory_count}</H1>
