@@ -1,8 +1,10 @@
-import  $ from 'jquery';
+import $ from 'jquery';
+// import cron from 'jquery-cron';
 
 export function bigCommerceSDK(context) {
 
         console.log('111111111111111111');
+        // console.log('cron', cron);
     if (typeof window === "undefined") return;
     console.log('222222222222222');
     console.log('window', window)
@@ -25,7 +27,8 @@ export function bigCommerceSDK(context) {
     $(document).ready(function() {
         // $('#selector')
         console.log('Hi !');
-        console.log('$(h2)', $('h2'))
+        console.log('$(h2)', $('h2'));
+        console.log('my-custom-id', $('#my-custom-id'))
     });
 
     window.bcAsyncInit = function() {

@@ -25,6 +25,7 @@
     "firebase": "^9.5.0",
     "fs": "0.0.1-security",
     "jquery": "^3.6.0",
+    "jquery-cron": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "next": "^11.1.3",
