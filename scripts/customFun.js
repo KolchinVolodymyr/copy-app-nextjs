@@ -1,5 +1,5 @@
 import $ from 'jquery';
 
-export function customFun() {
+export function customFunCron() {
     console.log('sssssssssssssssd')
 }
